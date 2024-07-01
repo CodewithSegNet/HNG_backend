@@ -65,9 +65,8 @@ def hello():
     greeting = f"Hello, {visitor_name}!, the temperature is {temperature} degrees Celsius in {location}"
 
     response_data = {
-        'client_ip': client_ip,
-        'location': location,
-        'greeting': greeting
+        "client_ip": client_ip,
+        "greeting": greeting
     }
 
     return jsonify(response_data)
