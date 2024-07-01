@@ -27,10 +27,14 @@ def get_location(ip):
     """ a function that retrieves Users ip address """
     access_token = os.getenv('IP_API_KEY')
     url = f"https://ipinfo.io/{ip}/json?token={access_token}"
-    response = requests.get(url)
-    data = response.json()
-    location = data.get('city', 'unknown location')
-    if location == '':
+    
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        location = data.get('city', 'unknown location')
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching location data: {e}")
         location = 'Unknown Location'
     return location
 
@@ -38,9 +42,15 @@ def get_temperature(location):
     """ a function that retrieves Users location temperature """
     api_key = os.getenv('WEATHER_API_KEY')
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
-    response = requests.get(url)
-    data = response.json()
-    return data['current']['temp_c']
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        temperature = data['current']['temp_c']
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching temperature data: {e}")
+        temperature = "Unknown"
+    return temperature
 
     
 
