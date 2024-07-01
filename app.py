@@ -66,6 +66,7 @@ def hello():
 
     response_data = {
         "client_ip": client_ip,
+        "location": location,
         "greeting": greeting
     }
 
