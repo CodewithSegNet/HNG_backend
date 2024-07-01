@@ -15,6 +15,7 @@ load_dotenv()
 
 
 def get_client_ip():
+    """ a function that retrieve User Ip address"""
     if request.headers.get('X-Forwarded-For'):
         # 'X-Forwarded-For' can contain multiple IPs. The first one is the client IP.
         return request.headers['X-Forwarded-For'].split(',')[0].strip()
